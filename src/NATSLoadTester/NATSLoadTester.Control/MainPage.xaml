@@ -7,7 +7,7 @@
     <ContentPage.BindingContext>
         <local:MainPageViewModel />
     </ContentPage.BindingContext>
-    
+
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
@@ -39,15 +39,15 @@
             <Grid HorizontalOptions="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Label Grid.Column="0" Grid.Row="0" Text="Label 1" VerticalTextAlignment="Center" />
-                <Label Grid.Column="0" Grid.Row="1" Text="Label 2" VerticalTextAlignment="Center" />
-                <Entry Grid.Column="1" Grid.Row="0" Text="Entry 1" IsReadOnly="True" />
+                <Label Grid.Column="0" Grid.Row="0" Text="{StaticResource DateFieldLabel}" VerticalTextAlignment="Center" />
+                <Label Grid.Column="0" Grid.Row="1" Text="{StaticResource TimeFieldLabel}" VerticalTextAlignment="Center" />
+                <Entry Grid.Column="1" Grid.Row="0" Text="{Binding DateTime, StringFormat='{0:d}'}" IsReadOnly="True" />
                 <Entry Grid.Column="1" Grid.Row="1" Text="{Binding DateTime, StringFormat='{0:T}'}" IsReadOnly="True" />                
             </Grid>
         </VerticalStackLayout>

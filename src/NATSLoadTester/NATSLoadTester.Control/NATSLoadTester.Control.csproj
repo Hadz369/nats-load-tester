@@ -63,4 +63,10 @@
 		<PackageReference Include="NATS.Net" Version="2.5.4" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Strings\Strings_en-AU.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

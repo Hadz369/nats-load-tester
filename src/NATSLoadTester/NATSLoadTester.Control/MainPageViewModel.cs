@@ -10,6 +10,9 @@ namespace NATSLoadTester.Control
         private DateTime _dateTime;
         private Timer _timer;
 
+        public string Label1Text { get { return "Date"; } }
+        public string Label2Text { get { return "Time"; } }
+
         public DateTime DateTime
         {
             get => _dateTime;
