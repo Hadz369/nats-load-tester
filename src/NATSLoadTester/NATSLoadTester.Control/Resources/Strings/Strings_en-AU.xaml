@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NATSLoadTester.Control.Resources.Strings.Strings_en_AU">
 
-    <x:String x:Key="DateFieldLabel">Date</x:String>
-    <x:String x:Key="TimeFieldLabel">Time</x:String>
+    <x:String x:Key="ConnectedClientsLabelText">Connected Clients</x:String>
+    <x:String x:Key="ClearConnectedClientsButtonText">Clear Connected Clients</x:String>
 
 </ResourceDictionary>

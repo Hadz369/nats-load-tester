@@ -1,42 +1,48 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace NATSLoadTester.Control
 {
     internal class MainPageViewModel : INotifyPropertyChanged
     {
+        int _connectedClients = 0;
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private DateTime _dateTime;
-        private Timer _timer;
+        public ICommand ClearConnectedClientsClickCommand { get; private set; }
 
-        public string Label1Text { get { return "Date"; } }
-        public string Label2Text { get { return "Time"; } }
-
-        public DateTime DateTime
+        public int ConnectedClients
         {
-            get => _dateTime;
+            get => _connectedClients;
             set
             {
-                if (_dateTime != value)
+                if (_connectedClients != value)
                 {
-                    _dateTime = value;
-                    OnPropertyChanged(); // reports this property
+                    _connectedClients = value;
+                    OnPropertyChanged();
                 }
             }
         }
 
         public MainPageViewModel()
         {
-            this.DateTime = DateTime.Now;
+            ClearConnectedClientsClickCommand = new Command(
+                execute: () =>
+                {
+                    ConnectedClients = 0;
+                },
+                canExecute: () =>
+                {
+                    return true;
+                });
 
-            // Update the DateTime property every second.
-            _timer = new Timer(new TimerCallback((s) => this.DateTime = DateTime.Now),
-                               null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         }
 
-        ~MainPageViewModel() =>
-            _timer.Dispose();
+        ~MainPageViewModel() 
+        {
+            // Clean Up
+        }
 
         public void OnPropertyChanged([CallerMemberName] string name = "") =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

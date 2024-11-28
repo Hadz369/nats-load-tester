@@ -8,8 +8,7 @@
     Title="NATSLoadTester.Control">
 
     <ShellContent
-        Title="Control"
+        Title="Manager"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-
 </Shell>
