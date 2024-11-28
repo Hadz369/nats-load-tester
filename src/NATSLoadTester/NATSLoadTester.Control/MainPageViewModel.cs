@@ -6,7 +6,28 @@ namespace NATSLoadTester.Control
 {
     internal class MainPageViewModel : INotifyPropertyChanged
     {
-        int _connectedClients = 0;
+        private int _connectedClients = 0;
+        private Timer _timer;
+
+        public MainPageViewModel()
+        {
+            ClearConnectedClientsClickCommand = new Command(
+                execute: () =>
+                {
+                    ConnectedClients = 0;
+                },
+                canExecute: () =>
+                {
+                    return true;
+                });
+
+            _timer = PrepareTimer();
+        }
+
+        ~MainPageViewModel()
+        {
+            // Clean Up
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -25,23 +46,10 @@ namespace NATSLoadTester.Control
             }
         }
 
-        public MainPageViewModel()
+        private Timer PrepareTimer()
         {
-            ClearConnectedClientsClickCommand = new Command(
-                execute: () =>
-                {
-                    ConnectedClients = 0;
-                },
-                canExecute: () =>
-                {
-                    return true;
-                });
-
-        }
-
-        ~MainPageViewModel() 
-        {
-            // Clean Up
+            return new Timer(new TimerCallback((s) => this.ConnectedClients++),
+                               null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         }
 
         public void OnPropertyChanged([CallerMemberName] string name = "") =>
