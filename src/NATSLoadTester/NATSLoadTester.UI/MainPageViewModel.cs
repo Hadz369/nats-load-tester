@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using NATSLoadTester.Infrastructure;
 
-namespace NATSLoadTester.Control
+namespace NATSLoadTester.UI
 {
     internal class MainPageViewModel : INotifyPropertyChanged
     {

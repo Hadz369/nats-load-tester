@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace NATSLoadTester.Control
+namespace NATSLoadTester.UI
 {
     public static class MauiProgram
     {

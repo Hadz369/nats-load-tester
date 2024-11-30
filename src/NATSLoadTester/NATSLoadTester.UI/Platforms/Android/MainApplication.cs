@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace NATSLoadTester.Control
+namespace NATSLoadTester.UI
 {
     [Application]
     public class MainApplication : MauiApplication

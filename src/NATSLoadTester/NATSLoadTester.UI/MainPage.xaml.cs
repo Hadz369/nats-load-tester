@@ -1,4 +1,4 @@
-﻿namespace NATSLoadTester.Control
+﻿namespace NATSLoadTester.UI
 {
     public partial class MainPage : ContentPage
     {

@@ -1,4 +1,4 @@
-namespace NATSLoadTester.Control.Resources.Strings;
+namespace NATSLoadTester.UI.Resources.Strings;
 
 public partial class Strings_en_AU : ResourceDictionary
 {

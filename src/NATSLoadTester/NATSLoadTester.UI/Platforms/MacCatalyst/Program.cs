@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace NATSLoadTester.Control
+namespace NATSLoadTester.UI
 {
     public class Program
     {

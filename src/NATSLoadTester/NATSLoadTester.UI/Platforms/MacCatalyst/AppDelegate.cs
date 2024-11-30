@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace NATSLoadTester.Control
+namespace NATSLoadTester.UI
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate
