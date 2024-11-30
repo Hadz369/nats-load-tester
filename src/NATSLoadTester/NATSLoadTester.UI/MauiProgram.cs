@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using NATSLoadTester.Infrastructure;
 
 namespace NATSLoadTester.UI
 {
@@ -14,6 +15,9 @@ namespace NATSLoadTester.UI
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+//            DependencyRegistrar.RegisterApplicationServices(builder.Services);
+//            builder.Services.AddTransient<MainPageViewModel>();
 
 #if DEBUG
     		builder.Logging.AddDebug();

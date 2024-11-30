@@ -1,19 +1,30 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using NATSLoadTester.Application;
 using NATSLoadTester.Infrastructure;
+using NATSLoadTester.Infrastructure.Messaging;
 
 namespace NATSLoadTester.UI
 {
-    internal class MainPageViewModel : INotifyPropertyChanged
+    public class MainPageViewModel : INotifyPropertyChanged, IDisposable
     {
         private int _connectedClients = 0;
         private Timer _timer;
-        private IMessageBusProvider _messageBusProvider;
+        
+        IMessageBusProvider _messageBusProvider;
+        CancellationTokenSource _cts = new CancellationTokenSource();
+        private object _myCollectionLock = new object();
 
         public MainPageViewModel()
         {
-            _messageBusProvider = new NATSProvider();
+            _messageBusProvider = MessageBusProviderFactory.GetProvider();
+
+            _messageBusProvider.Subscribe(
+                "foo",
+                new Action<IMessageBusMessage>((m) => { AddReceivedMessage(m); }),
+                _cts.Token);
 
             ClearConnectedClientsClickCommand = new Command(
                 execute: () =>
@@ -28,31 +39,45 @@ namespace NATSLoadTester.UI
             _timer = PrepareTimer();
         }
 
-        ~MainPageViewModel()
-        {
-            _messageBusProvider.Dispose();
-        }
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        public ObservableCollection<string> ReceivedMessages { get; } = new();
+        
         public ICommand ClearConnectedClientsClickCommand { get; private set; }
 
         public int ConnectedClients
         {
             get => _connectedClients;
-            set
+            set => SetConnectedClients(value);
+        }
+
+        private void SetConnectedClients(int value)
+        {
+            if (_connectedClients != value)
             {
-                if (_connectedClients != value)
-                {
-                    _connectedClients = value;
-                    OnPropertyChanged();
-                }
+                _connectedClients = value;
+                OnPropertyChanged();
             }
         }
 
         private Timer PrepareTimer()
         {
             return new Timer(new TimerCallback(OnTimer), null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+        }
+
+        private void AddReceivedMessage(IMessageBusMessage message)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                lock (_myCollectionLock)
+                {
+                    ReceivedMessages.Add($"{message.Subject}");
+                    if (ReceivedMessages.Count > 5)
+                    {
+                        ReceivedMessages.RemoveAt(0);
+                    }
+                }
+            });
         }
 
         private void OnTimer(object? stateInfo)
@@ -63,5 +88,15 @@ namespace NATSLoadTester.UI
 
         public void OnPropertyChanged([CallerMemberName] string name = "") =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+
+        ~MainPageViewModel()
+        {
+        }
+
+        public void Dispose()
+        {
+            _cts.Cancel();
+            _messageBusProvider.Dispose();
+        }
     }
 }

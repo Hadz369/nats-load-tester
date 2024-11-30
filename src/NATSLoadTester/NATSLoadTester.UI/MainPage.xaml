@@ -29,6 +29,7 @@
                 SemanticProperties.Hint="Clears the connected client counter"
                 Command="{Binding ClearConnectedClientsClickCommand}"
                 HorizontalOptions="Start" />
+            <ListView ItemsSource="{Binding ReceivedMessages}" MaximumHeightRequest="150" VerticalScrollBarVisibility="Always" />
         </VerticalStackLayout>
     </ScrollView>
 
