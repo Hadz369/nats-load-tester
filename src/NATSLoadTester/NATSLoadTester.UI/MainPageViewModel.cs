@@ -56,7 +56,7 @@ namespace NATSLoadTester.UI
             if (_connectedClients != value)
             {
                 _connectedClients = value;
-                OnPropertyChanged();
+                OnPropertyChanged("ConnectedClients");
             }
         }
 
@@ -71,7 +71,7 @@ namespace NATSLoadTester.UI
             {
                 lock (_myCollectionLock)
                 {
-                    ReceivedMessages.Add($"{message.Subject}");
+                    ReceivedMessages.Add($"{message.Subject}, {message.Data}");
                     if (ReceivedMessages.Count > 5)
                     {
                         ReceivedMessages.RemoveAt(0);

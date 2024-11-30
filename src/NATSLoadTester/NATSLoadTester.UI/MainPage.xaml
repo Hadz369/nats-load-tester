@@ -21,7 +21,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" Text="{StaticResource ConnectedClientsLabelText}" VerticalTextAlignment="Center" />
-                <Entry Grid.Column="1" Grid.Row="0" Text="{Binding ConnectedClients}" IsReadOnly="True" />                
+                <Entry Grid.Column="1" Grid.Row="0" Text="{Binding ConnectedClients, Mode=OneWay}" IsReadOnly="True" />                
             </Grid>
             <Button
                 x:Name="ClearCounters"
@@ -29,7 +29,9 @@
                 SemanticProperties.Hint="Clears the connected client counter"
                 Command="{Binding ClearConnectedClientsClickCommand}"
                 HorizontalOptions="Start" />
-            <ListView ItemsSource="{Binding ReceivedMessages}" MaximumHeightRequest="150" VerticalScrollBarVisibility="Always" />
+            <ListView 
+                ItemsSource="{Binding ReceivedMessages, Mode=OneWay}" WidthRequest="250" MaximumHeightRequest="150" 
+                VerticalScrollBarVisibility="Always" HorizontalOptions="Start" />
         </VerticalStackLayout>
     </ScrollView>
 

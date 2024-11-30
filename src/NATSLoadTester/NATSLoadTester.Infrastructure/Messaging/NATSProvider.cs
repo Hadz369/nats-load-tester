@@ -54,7 +54,7 @@ namespace NATSLoadTester.Infrastructure.Messaging
         {
             Task task = new Task(async () =>
             {
-                await foreach (var msg in _natsClient.SubscribeAsync<object>(subject, cancellationToken: cancellationToken))
+                await foreach (var msg in _natsClient.SubscribeAsync<string>(subject, cancellationToken: cancellationToken))
                 {
                     IMessageBusMessage message = FormatResponseMessage(msg);
                     messageReceivedAction(message);
